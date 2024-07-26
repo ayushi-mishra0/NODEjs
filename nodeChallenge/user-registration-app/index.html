@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration</title>
+</head>
+<body>
+  <h1>User Registration</h1>
+  <form id="registrationForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+    <button type="submit">Register</button>
+  </form>
+
+  <h2>List of Users</h2>
+  <ul id="userList"></ul>
+
+  <script>
+    // Function to fetch users from API and display them
+    async function fetchUsers() {
+      const response = await fetch('/api/users');
+      const users = await response.json();
+
+      const userListElement = document.getElementById('userList');
+      userListElement.innerHTML = '';
+
+      users.forEach(user => {
+        const li = document.createElement('li');
+        li.textContent = `Username: ${user.username}, Email: ${user.email}`;
+        userListElement.appendChild(li);
+      });
+    }
+
+    // Function to handle form submission and register user via API
+    async function registerUser(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(Object.fromEntries(formData)),
+      });
+
+      if (response.ok) {
+        fetchUsers(); // Refresh user list after successful registration
+        form.reset(); // Clear the form
+      } else {
+        alert('Failed to register user.');
+      }
+    }
+
+    // Attach event listener to form submission
+    document.getElementById('registrationForm').addEventListener('submit', registerUser);
+
+    // Initial fetch to populate user list on page load
+    fetchUsers();
+  </script>
+</body>
+</html>
