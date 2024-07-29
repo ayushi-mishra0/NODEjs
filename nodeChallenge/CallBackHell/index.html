@@ -1,0 +1,11 @@
+function getCheese(){
+    setTimeout(() => {
+        const cheese = "cheese";
+        console.log("here is cheese",cheese);
+        callback(cheese);
+    },2000);
+}
+getCheese((cheese) =>{
+    console.log("got the cheese",cheese);
+});
+

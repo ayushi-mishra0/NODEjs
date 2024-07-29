@@ -9,7 +9,7 @@
   "author": "ayushi",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^4.0.0",
+    "chalk": "^4.1.2",
     "nodemon": "^3.1.4",
     "validator": "^13.12.0"
   }
