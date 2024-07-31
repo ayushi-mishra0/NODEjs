@@ -7,7 +7,7 @@ const app = express();
 const staticPath = path.join(__dirname, "../public");
 
 
-//builtin middleware
+//builtin middleware->express.static
 app.use(express.static(staticPath));
 app.get("/",(req,res) => {
     res.send("hello world from the expressss");
@@ -24,6 +24,6 @@ app.get("/temp",(req,res) => {
         res.send("hello world from About page.");
 });
 
-app.listen(8000, () => {
+app.listen(3000, () => {
     console.log("listening to the port 8000");
 });
